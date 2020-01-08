@@ -1,0 +1,118 @@
+<% layout('layout') -%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body  algin="center">
+    <div id="Logincontainer">
+
+    <form class="form-horizontal">
+<font color="white">
+  <h1 align="center">Product Registration</h1>
+<br><br><br>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_id" > PRODUCT ID</label>
+    <div class="col-md-4">
+    <input id="product_id" name="product_id" placeholder="PRODUCT ID" class="form-control input-md" required="" type="text">
+
+    </div>
+  </div>
+
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+    <div class="col-md-4">
+    <input id="product_name" name="product_name" placeholder="PRODUCT NAME" class="form-control input-md" required="" type="text">
+
+    </div>
+  </div>
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_name_fr">PRODUCT DESCRIPTION FR</label>
+    <div class="col-md-4">
+    <input id="product_name_fr" name="product_name_fr" placeholder="PRODUCT DESCRIPTION FR" class="form-control input-md" required="" type="text">
+
+    </div>
+  </div>
+
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_categorie">PRODUCT CATEGORY</label>
+    <div class="col-md-4">
+      <select id="product_categorie" name="product_categorie" class="form-control">
+        <option>Select Category</option>
+     <option>Laptops</option>
+     <option>Consoles</option>
+     <option>Mobiles</option>
+     <option>AC</option>
+     <option>Dekstop</option>
+     <option>Washing Machine</option>
+      </select>
+    </div>
+  </div>
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="available_quantity">AVAILABLE QUANTITY</label>
+    <div class="col-md-4">
+    <input id="available_quantity" name="available_quantity" placeholder="AVAILABLE QUANTITY" class="form-control input-md" required="" type="text">
+
+    </div>
+  </div>
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_weight">PRODUCT WEIGHT</label>
+    <div class="col-md-4">
+    <input id="product_weight" name="product_weight" placeholder="PRODUCT WEIGHT" class="form-control input-md" required="" type="text">
+
+    </div>
+  </div>
+<br>
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_description">PRODUCT DESCRIPTION</label>
+    <div class="col-md-4">
+      <textarea class="form-control" id="product_description" name="product_description"></textarea>
+    </div>
+  </div>
+<br>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Account Number">Bank Account Number</label>
+  <div class="col-md-4">
+    <input id="accountNumber" name="product_weight" placeholder="Account Number" class="form-control input-md" required="" type="text">
+  </div>
+</div>
+<br>
+
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="filebutton">Product Main Image</label>
+    <div class="col-md-4">
+      <input id="filebutton" name="filebutton" class="input-file" type="file">
+    </div>
+  </div>
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="filebutton">Product Other Image</label>
+    <div class="col-md-4">
+      <input id="filebutton" name="filebutton" class="input-file" type="file">
+    </div>
+  </div>
+
+<br>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="singlebutton"></label>
+    <div class="col-md-4">
+          <button type="submit" value="vendorProfile" class="btn btn-success float-right login_btn" name="button">Add product</button>
+    </div>
+    </div>
+<br>
+</font>
+  </fieldset>
+  </form>
+
+</div>
+  </body>
+  </html>

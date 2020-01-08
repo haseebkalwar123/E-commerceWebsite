@@ -1,0 +1,184 @@
+var router = require('express').Router();
+var User = require('../models/user');
+var Cart = require('../models/cart');
+var async = require('async');
+var passport = require('passport');
+var passportConf = require('../config/passport');
+
+router.get('/mobile',function(req,res,next){
+  res.render('productCategory/mobile',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/laptop',function(req,res,next){
+  res.render('productCategory/laptop',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/camera',function(req,res,next){
+  res.render('productCategory/camera',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/AC',function(req,res,next){
+  res.render('productCategory/AC',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/oven',function(req,res,next){
+  res.render('productCategory/oven',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/washingmachine',function(req,res,next){
+  res.render('productCategory/washingmachine',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/vendor',function(req,res,next){
+  res.render('accounts/vendor',{
+    errors: req.flash('errors')
+  });
+});
+router.get('/vendorProfile',function(req,res,next){
+  res.render('accounts/vendorProfile',{
+    errors: req.flash('errors')
+  });
+});
+
+
+
+router.get('/chatBot',function(req,res){
+  res.render('accounts/chatBot',{message : req.flash('loginMessage')});
+});
+
+
+router.get('/login',function(req,res){
+  if (req.user) return res.redirect('/');
+  res.render('accounts/login',{message : req.flash('loginMessage')});
+});
+router.post('/login',passport.authenticate('local-login',{
+    successRedirect : '/profile',
+    failureRedirect : '/login' ,
+    failureFlash: true
+  }));
+
+  router.get('/vendor',function(req,res){
+    if (req.user) return res.redirect('/');
+    res.render('accounts/vendors',{message : req.flash('loginMessage')});
+  });
+  router.post('/vendor',passport.authenticate('local-login',{
+      successRedirect : '/vendorProfile',
+      failureRedirect : '/vendor' ,
+      failureFlash: true
+    }));
+
+  //
+  // router.get('/vendorlogin',function(req,res){
+  //   if (req.user) return res.redirect('/');
+  //   res.render('accounts/login',{message : req.flash('loginMessage')});
+  // });
+
+
+router.get('/adminlogin',function(req,res){
+    if (req.user) return res.redirect('/');
+    res.render('accounts/adminlogin',{message : req.flash('loginMessage')});
+  });
+router.post('/adminlogin',passport.authenticate('local-login',{
+      successRedirect : '/adminprofile',
+      failureRedirect : '/adminlogin',
+      failureFlash: true
+}));
+
+router.get('/adminprofile',function(req,res,next){
+  User.findOne({_id:req.user.id},function(err,user){
+    if (err) return next(err);
+
+      if(req.user.id == "5ddbf063710c571d4095c6d6")
+      {
+    res.render('accounts/adminprofile',{user:user});
+} else {
+  res.render('accounts/profile',{user:user});
+}
+});
+});
+
+
+
+router.get('/profile',function(req,res,next){
+  User.findOne({_id:req.user._id},function(err,user){
+    if (err) return next(err);
+
+    res.render('accounts/profile',{user:user});
+  });
+});
+
+router.get('/signup',function(req,res,next){
+  res.render('accounts/signup',{
+    errors: req.flash('errors')
+  });
+});
+
+
+router.post('/signup',function(req,res,next){
+  async.waterfall([
+    function(callback){
+      var user = new User();
+
+      user.profile.name=req.body.name;
+      user.password=req.body.password;
+      user.email=req.body.email;
+      user.profile.picture=user.gravatar();
+
+      User.findOne({email : req.body.email},function(err,existingUser){
+        if (existingUser){
+          req.flash('errors','Account with that email address already exists');
+          return res.redirect('/signup');
+      }else {
+        user.save(function(err,user){
+          if (err) return next(err);
+          callback(null,user);
+        });
+       }
+     });
+   },
+    function(user){
+       var cart = new Cart();
+       cart.owner = user._id;
+        cart.save(function(err){
+          if (err) return next(err);
+          req.logIn(user,function(err){
+            if (err) return next(err);
+            res.redirect('/profile');
+         });
+       });
+    }
+  ]);
+});
+
+router.get('/logout',function(req,res,next){
+  req.logout();
+  res.redirect('/');
+});
+
+router.get('/edit-profile',function(req,res,next){
+  res.render('accounts/edit-profile',{message:req.flash('success')});
+});
+
+
+router.post('/edit-profile',function(req,res,next){
+  User.findOne({_id:req.user._id},function(err,user){
+    if(err) return next(err);
+
+    if(req.body.name) user.profile.name=req.body.name;
+    if(req.body.address) user.address = req.body.address;
+
+   user.save(function(err){
+     if (err) return next(err);
+     req.flash('success','Successfully Edited your profile..');
+     return res.redirect('/edit-profile');
+   });
+  });
+});
+
+module.exports = router;

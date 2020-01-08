@@ -1,0 +1,34 @@
+<% layout('layout') -%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <img src="<%= user.profile.picture %>" class="img-circle img-responsive img-center" alt="">
+      <br/>
+      <p>Name: <%= user.profile.name %></p>
+      <p>Email: <%= user.email %></p>
+
+      <% if(user.address === "" || typeof user.address === "undefined") { %>
+        <p>Address:<span style="color:#c0392b; font-weight:bold"> You have no address</span></p>
+        <% } else { %>
+          <p>Address : <%= user.address %></p>
+          <% } %>
+
+     <a href="/edit-profile" class="btn btn-primary btn-lg">Edit Profile</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="title" >
+    <!-- <button type="button" name="button"><a href="#">Close</a></button> -->
+    <div class="box">
+  <iframe
+      style="border:4px solid red;"
+      allow="microphone;"
+      width="350"
+      height="400"
+      src="https://console.dialogflow.com/api-client/demo/embedded/8f30b2c9-9b41-4ab5-9066-688f3eeb6c76">
+  </iframe>
+ </div>
+</div>

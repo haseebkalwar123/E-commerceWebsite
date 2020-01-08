@@ -1,0 +1,108 @@
+<% layout('layout') -%>
+<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/adminlogin.css">
+</head>
+
+<body>
+
+  <div class="container emp-profile">
+    <form method="post">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="profile-img col-md-4">
+            <img src="/images/73.jpg" alt="Person image is missing">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="profile-head">
+            <h5>
+              haseeb kalwar
+            </h5>
+            <h6>
+              Web Developer and Designer
+            </h6>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">All users</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+           <a href="/edit-profile" class="btn btn-primary btn-lg">Edit Profile</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="profile-work">
+            <p>WORK LINK</p>
+            <a href="">Website Link</a><br />
+            <a href="">Bootsnipp Profile</a><br />
+            <a href="">Bootply Profile</a>
+            <p>SKILLS</p>
+            <a href="">Web Designer</a><br />
+            <a href="">Web Developer</a><br />
+            <a href="">WordPress</a><br />
+            <a href="">WooCommerce</a><br />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="tab-content profile-tab" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="row" id="searchResults">
+                <div class="col-md-4">
+                  <% for (var i=0; i<categories.length; i++)  {%>
+
+                   <% if (categories[i].name=='mobile') {%>
+                      <li> <a href="/mobile"><%=categories[i].name %></a> </li>
+                   <% } else if(categories[i].name=='laptop'){%>
+                     <li> <a href="/laptop"><%=categories[i].name %></a> </li>
+                   <% } else if(categories[i].name=='camera'){%>
+                     <li> <a href="/camera"><%=categories[i].name %></a> </li>
+                   <% } else if(categories[i].name=='oven'){%>
+                     <li> <a href="/oven"><%=categories[i].name %></a> </li>
+                   <% } else if(categories[i].name=='air-condition'){%>
+                     <li> <a href="/AC"><%=categories[i].name %></a> </li>
+                   <% } else if(categories[i].name=='washing machine'){%>
+                     <li> <a href="/washingmachine"><%=categories[i].name %></a> </li>
+                   <% } else {%>
+                    <li> <a href="/products/<%=categories[i]._id %>"><%=categories[i].name %></a> </li>
+                    <% } %>
+
+                  <% } %>
+                </div>
+
+              </div>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="row">
+                <form action="/removeUser" method="post">
+                  <% for (var i=0; i<users.length; i++){ %>
+                  <div class="col-md-12">
+                            <h3><%=users[i].email %></h3>
+                            <button type="submit" type="button">Delete</button>
+                  </div>
+                  <% } %>
+                  </form>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

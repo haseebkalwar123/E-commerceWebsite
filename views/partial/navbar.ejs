@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container">
+    <div>
+      <a href="/" class="nav-item"><img src="/images/favicon.png" alt="" />AllProduct</a>
+    </div>
+
+
+    <form class="navbar-form navbar-left form-inline" action="/search" method="post">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="q" class="form-control" placeholder="Search.." value="">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2" name="button">Search</button>
+    </form>
+
+    <!-- <nav class="navbar navbar-expand-sm"> -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
+        </a>
+        <ul class="dropdown-menu">
+          <% for (var i=0; i<categories.length; i++)  {%>
+
+          <% if (categories[i].name=='mobile') {%>
+          <li> <a href="/mobile"><%=categories[i].name %></a> </li>
+          <% } else if(categories[i].name=='laptop'){%>
+          <li> <a href="/laptop"><%=categories[i].name %></a> </li>
+          <% } else if(categories[i].name=='camera'){%>
+          <li> <a href="/camera"><%=categories[i].name %></a> </li>
+          <% } else if(categories[i].name=='oven'){%>
+          <li> <a href="/oven"><%=categories[i].name %></a> </li>
+          <% } else if(categories[i].name=='air-condition'){%>
+          <li> <a href="/AC"><%=categories[i].name %></a> </li>
+          <% } else if(categories[i].name=='washing machine'){%>
+          <li> <a href="/washingmachine"><%=categories[i].name %></a> </li>
+          <% } else {%>
+          <li> <a href="/products/<%=categories[i]._id %>"><%=categories[i].name %></a> </li>
+          <% } %>
+
+          <% } %>
+        </ul>
+      </li>
+
+
+      <% if(!user) { %>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" href="/signup">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" href="/adminlogin">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link scroll-link" href="/vendor">Vendor</a>
+        </li>
+      <% } else { %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= user.profile.name %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/profile">Profile</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
+         <a href="/chatBot" class="nav-link">helpPage</a>
+      <% } %>
+
+
+      <% if(user) { %>
+      <li><a href="/cart" style="color:#FF0000;"><i class="fa fa-shopping-cart" style="font-size:24px"><span class="badge"> <%=cart%> </span></i></a></li>
+      <% } else { %>
+      <li><a href="/cart" style="color:#FF0000;"><span class="badge"> 0 </span></a></li>
+      <% } %>
+    </ul>
+<!-- </nav> -->
+  </div>
+</nav>
